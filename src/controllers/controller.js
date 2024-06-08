@@ -8,10 +8,29 @@ class Controller {
             const listaDeRegistros = await this.entidadeService.pegaTodosOsRegistros();
             return res.status(200).send(listaDeRegistros);
         }catch(error){
-
+            res.status(500).send(error);
         }
     }
 
+    async pegaUmPorId(req, res){
+        try{
+            const { id } = req.params;
+            const registro = await this.entidadeService.pegaUmPorId(Number.parseInt(id));
+            return res.status(200).send(registro);
+        }catch(error){
+            res.status(400).json({message: "Id da requisição não encontrado"});
+        }
+    }
+
+    async criaNovo(req, res){
+        const dadosDoRegistro = req.body;
+        try{
+            const registroCriado = await this.entidadeService.criaNovoRegistro(dadosDoRegistro);
+            return res.status(201).send(registroCriado);
+        }catch(error){
+            res.status(500).send(error);
+        }
+    }
 
     async atualiza(req, res){
         const { id } = req.params;
@@ -24,6 +43,19 @@ class Controller {
             return res.status(200).json({message: `registro ${id} atualizado com sucesso`});
         }catch(error){
 
+        }
+    }
+
+    async exclui(req, res){
+        const { id } = req.params;
+        try {
+            const registroExcluido = await this.entidadeService.excluiRegistro(Number.parseInt(id));
+            if(!registroExcluido){
+                res.status(400).json({message: "Id da requisição não encontrado"});
+            }
+            return res.status(200).json({message: `registro ${id} excluido com sucesso`});
+        }catch(error){
+            res.status(500).send(error);
         }
     }
 }

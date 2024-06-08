@@ -1,5 +1,6 @@
 'use strict';
-
+//commandto generate this archive
+// npx sequelize-cli seed:generate --name demo-matriculas
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -57,7 +58,7 @@ module.exports = {
         role: 'docente',
         createdAt: new Date(),
         updatedAt: new Date(),
-      },
+      }
     ], {});
     
   },

@@ -1,5 +1,7 @@
 const express = require('express');
 const pessoasRoute = require('./pessoaRoute.js');
+const categoriasRoute = require('./categoriaRoute.js');
+const cursosRoute = require('./cursoRoute.js');
 
 module.exports = app => {
     app.route("/").get((req, res) =>{
@@ -8,6 +10,8 @@ module.exports = app => {
 
     app.use(
         express.json(),
-        pessoasRoute
+        pessoasRoute,
+        categoriasRoute,
+        cursosRoute
     )
 }
