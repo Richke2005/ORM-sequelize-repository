@@ -1,3 +1,6 @@
+//controllers por regra geral lidam apenas com parte de requisições e respostas 
+// já os services fazem a interação com o banco de dados aplicando as regras de negócios
+
 class Controller {
     constructor(entidadeService){
         this.entidadeService = entidadeService;
@@ -8,7 +11,7 @@ class Controller {
             const listaDeRegistros = await this.entidadeService.pegaTodosOsRegistros();
             return res.status(200).send(listaDeRegistros);
         }catch(error){
-            res.status(500).send(error);
+            return res.status(500).send(error);
         }
     }
 
