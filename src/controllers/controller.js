@@ -11,7 +11,7 @@ class Controller {
             const listaDeRegistros = await this.entidadeService.pegaTodosOsRegistros();
             return res.status(200).send(listaDeRegistros);
         }catch(error){
-            return res.status(500).send(error);
+            return res.status(500).send({error: error.message});
         }
     }
 
@@ -31,7 +31,7 @@ class Controller {
             const registroCriado = await this.entidadeService.criaNovoRegistro(dadosDoRegistro);
             return res.status(201).send(registroCriado);
         }catch(error){
-            res.status(500).send(error);
+            res.status(500).send({error: error.message});
         }
     }
 
@@ -58,7 +58,7 @@ class Controller {
             }
             return res.status(200).json({message: `registro ${id} excluido com sucesso`});
         }catch(error){
-            res.status(500).send(error);
+            res.status(500).send({error: error.message});
         }
     }
 }
