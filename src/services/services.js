@@ -1,42 +1,46 @@
 const dataSource = require('../database/models');
 
 class Services {
-    constructor(nomeDoModel){
-        this.model = nomeDoModel;
-    }
+  constructor(nomeDoModel){
+    this.model = nomeDoModel;
+  }
 
-    async pegaTodosOsRegistros(){
-        return dataSource[this.model].findAll();
-    }
+  async pegaTodosOsRegistros(){
+    return dataSource[this.model].findAll();
+  }
 
-    async pegaUmPorId(id){
-        return dataSource[this.model].findByPk(id);
-    }
+  async pegaRegistrosPorEscopo(escopo){
+    return dataSource[this.model].scope(escopo).findAll();
+  }
 
-    async criaNovoRegistro(dadosDoRegistro){
-        return dataSource[this.model].create(dadosDoRegistro);
-    }
+  async pegaUmPorId(id){
+    return dataSource[this.model].findByPk(id);
+  }
 
-   async atualizaRegistro(dadosAtualizados, id){
+  async criaNovoRegistro(dadosDoRegistro){
+    return dataSource[this.model].create(dadosDoRegistro);
+  }
+
+  async atualizaRegistro(dadosAtualizados, id){
     const listaDeregistrosAtualizados = dataSource[this.model].update(dadosAtualizados, { 
-        where: { id: id }
-        }
+      where: { id: id }
+    }
     );
     if(listaDeregistrosAtualizados[0] === 0 ){
-        return false;
+      return false;
     }
     return true;
-   }
+  }
 
-   async excluiRegistro(id){
+  async excluiRegistro(id){
     const registroExcluido = dataSource[this.model].destroy({
-        where: { id: id }
+      where: { id: id }
     });
     if(registroExcluido === 0){
-        return false;
+      return false;
     }
     return true;
-   }
+  }
 }
 
     
